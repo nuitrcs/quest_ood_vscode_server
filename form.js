@@ -126,6 +126,20 @@ function update_constraint_options(assocs) {
 }
 
 /**
+ *  *  If gengpu and H100, update the constraint to RHEL8
+ *   */
+function gengpu_and_h100() {
+  const slurm_gres_value = $("#batch_connect_session_context_gres_value");
+  slurm_gres_value.change(() => {
+    if (($("#batch_connect_session_context_slurm_partition").val() === 'gengpu') && ($("#batch_connect_session_context_gres_value").val().includes("h100"))) {
+      $("#batch_connect_session_context_constraint").val("rhel8")
+    } else if (($("#batch_connect_session_context_slurm_partition").val() === 'gengpu') && ($("#batch_connect_session_context_gres_value").val().includes("a100")) && ($("#batch_connect_session_context_constraint").val() === "rhel8")) {
+      $("#batch_connect_session_context_constraint").val("")
+    }
+  });
+}
+
+/**
  *  If kellogg, set some things
  */
 function is_kellogg() {
@@ -182,7 +196,7 @@ function set_min_max(assocs) {
     });
   } else {
     $("#memory_per_node").attr({
-       "max" : 243,
+       "max" : 1000,
        "min" : 1,
     });
   }
@@ -265,6 +279,7 @@ $(document).ready(function() {
   set_slurm_partition_change_handler();
   set_slurm_account_change_handler();
   set_more_than_one_node_change_handler();
+  gengpu_and_h100();
   collapse_help();
   $(function () {
     $('[data-toggle="tooltip"]').tooltip({'boundary': $("body")});
