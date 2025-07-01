@@ -11,13 +11,14 @@ batch_connect:
   websockify_cmd: '/usr/bin/websockify'
   script_wrapper: |
     module purge
-    module load singularity
+    module load singularityce/4.3.1-gcc-8.5.0
     cat << "CTRSCRIPT" > container.sh
     export PATH="$PATH:/opt/TurboVNC/bin"
     %s  
     CTRSCRIPT
 
-    export container_image=/software/openondemand/vscode-server/vscode-server-ood.sif
+    #export container_image=/projects/a9009/sbc538/Projects/OpenOnDemand/vscode-server/vscode-server-ood.sif
+    export container_image=/projects/a9009/sbc538/Projects/RHEL8/QuestOnDemand/expanded_pilot/quest_ood_vscode_server/rhel8-vscode-server-4.93.sif
 
     # All our software in /software so have to bind that
     export SING_BINDS="--bind /software:/software --bind /hpc/software:/hpc/software"
