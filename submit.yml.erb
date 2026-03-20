@@ -40,7 +40,7 @@ batch_connect:
     <%- end %>
 
     # only bind /kellogg is individual is part of kellogg group
-    export SING_BINDS="$SING_BINDS <%= groups.include?('kellogg') ? "--bind /kellogg/:/kellogg/" : "" %>"
+    #export SING_BINDS="$SING_BINDS <%= groups.include?('kellogg') ? "--bind /kellogg/:/kellogg/" : "" %>"
 
     # only bind /scratch/<netid> if individual has a scratch space
     export SING_BINDS="$SING_BINDS <%= File.directory?("/scratch/#{User.new.name}") ? "--bind /scratch/#{User.new.name}:/scratch/#{User.new.name}" : "" %>"
