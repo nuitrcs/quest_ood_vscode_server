@@ -1,6 +1,11 @@
 # Export the module function if it exists
 [[ $(type -t module) == "function" ]] && export -f module
 
+# Enabling container in container functionality
+export MODULEPATH=/hpc/software/rhel8/quest_ondemand/desktops/gnome/modules/:$MODULEPATH
+mkdir -p /tmp/$USER/singularity_cache
+mkdir -p /tmp/$USER/singularity_tmp
+
 # Find available port to run server on
 export port=$(find_port ${host})
 
